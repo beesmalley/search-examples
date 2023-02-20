@@ -1,21 +1,26 @@
 import sys
 import json
 
-# perform depth-first search (DFS) on input graph representation
+# perform depth-first search (DFS) on input graph representation using
+# a (LIFO) stack
 
-def dfs(u, N) :
+def dfs(s, N) :
 
-    c = ''
-    if u == 'G' :
-        c = ' <- goal!'
+    while s :
 
-    print(u, c, sep = '')
+        if not s[-1] :
+            s.pop()
+            continue
 
-    for v in N[u] :
-        dfs(v, N)
+        u = s[-1].pop()
 
+        print(u if u != 'G' else '{} <- goal!'.format(u))
+
+        s.append([v for v in sorted(N[u], reverse = True)])
+    
 # Main
 
 N = json.load(open(sys.argv[1],'r'))
 
-dfs('S', N)
+s = [['S']]
+dfs(s, N)
