@@ -1,11 +1,12 @@
 
 import graphviz
+from collections import defaultdict
 
 '''
 
-  for loading and visualizing graphs G = (V,E) of vertices V with
-  integer heuristic values h(v), for each v in V, and edges E with
-  integer weights w(e), for each e in E
+  for loading and visualizing graphs G = (V,E) stored in a CSV format.
+  Graphs have vertices V with integer heuristic values h(v), for each
+  v in V, and edges E with integer weights w(e), for each e in E
 
 '''
 
@@ -14,9 +15,11 @@ import graphviz
 # each edge e in E
 def load(lines) :
 
-    v, *heur, es = (x.strip() for x in lines.readline().split(','))
+    v, *heur, es, orientation = (x.strip() for x in lines.readline().split(','))
     assert v == 'v'
     assert es == 'es'
+    assert orientation in ['dir', 'undir']
+    undir = True if orientation == 'undir' else False
 
     if heur :
         assert len(heur) == 1
@@ -24,7 +27,7 @@ def load(lines) :
         assert heur == 'h'
 
     h = {} # heuristic value h(v), for each v in V
-    N = {} # set N(v) of neighbours, for each v in V
+    N = defaultdict(list) # set N(v) of neighbours, for each v in V
     w = {} # weight w(e), for each e in E
     for line in lines :
         v, *es = (x.strip() for x in line.split(','))
@@ -39,23 +42,51 @@ def load(lines) :
             u, *W = (x.strip() for x in e.split(':'))
 
             N[v].append(u)
+            if undir :
+                N[u].append(v)
 
             w[(v,u)] = 1 # w(e) 1 by default
             if W :
                 assert len(W) == 1
-                W = W[0]
-                w[(v,u)] = int(W)
+                W = int(W[0])
+                w[(v,u)] = W
 
+                if undir :
+
+                    if (u,v) in w :
+                        s = 'undirected graph with w({},{}) = {} yet w({},{}) = {}'
+                        assert w[(u,v)] == W, s.format(v,u,W,u,v,w[(u,v)])
+
+                    w[(u,v)] = W
+
+    for v in N[v] :
         N[v] = sorted(N[v])
 
     return h, N, w
 
 
-# given a graph, specified by h(v), for each v in V, and w(e), for
-# each e in E, color source green and goal red, and dump to filename
-def visualize(h, w, source = None, goal = None, filename = 'G') :
+# given a graph, load it, then color the start vertex green and goal
+# vertex red, and dump pdf to filename (.pdf)
+def visualize(lines, start = None, goal = None, filename = 'G') :
 
-    dot = graphviz.Digraph(comment = 'digraph {}'.format(filename))
+    h, N, w = load(lines)
+
+    undir = True
+    for e in w :
+        v, u = e
+
+        if (u,v) not in w :
+            undir = False
+
+        else :
+            if w[(u,v)] != w[(v,u)] :
+                undir = False
+
+    dot = None
+    if undir :
+        dot = graphviz.Graph(comment = 'graph {}'.format(filename))
+    else :
+        dot = graphviz.Digraph(comment = 'digraph {}'.format(filename))
 
     # vertices
 
@@ -67,7 +98,7 @@ def visualize(h, w, source = None, goal = None, filename = 'G') :
     for v in h :
         dot.node(v, xlabel = 'h({}) = {}'.format(v,h[v]) if heur else '')
 
-        if v == source :
+        if v == start :
             dot.node(v, style = 'filled', fillcolor = 'green')
 
         if v == goal :
@@ -80,9 +111,14 @@ def visualize(h, w, source = None, goal = None, filename = 'G') :
         if w[e] > 1 :
             weights = True
 
+    drawn = set([])
     for e in w :
         v, u = e
 
+        if (v,u) in drawn or (u,v) in drawn :
+            continue
+
         dot.edge(v, u, label = str(w[e]) if weights else '', fontcolor = 'blue')
+        drawn.add((v,u))
 
     dot.render(filename).replace('\\', '/')
