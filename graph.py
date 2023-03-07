@@ -65,8 +65,8 @@ def load(lines) :
     return h, N, w
 
 
-# given a graph, load it, then color the start vertex green and goal
-# vertex red, and dump pdf to filename (.pdf)
+# given a graph, load it, then color the start vertex green and the
+# goal vertex red, and dump pdf to filename (.pdf)
 def visualize(lines, start = None, goal = None, filename = 'G') :
 
     h, N, w = load(lines)
@@ -96,8 +96,8 @@ def visualize(lines, start = None, goal = None, filename = 'G') :
             heur = True
 
     for v in h :
-        dot.node(v, xlabel = 'h({}) = {}'.format(v,h[v]) if heur else '')
-
+        dot.node(v, xlabel = '<<font color="magenta">h({}) = {}</font>>'.format(v,h[v]) if heur else '')
+        
         if v == start :
             dot.node(v, style = 'filled', fillcolor = 'green')
 
@@ -115,8 +115,9 @@ def visualize(lines, start = None, goal = None, filename = 'G') :
     for e in w :
         v, u = e
 
-        if (v,u) in drawn or (u,v) in drawn :
-            continue
+        if undir :
+            if (v,u) in drawn or (u,v) in drawn :
+                continue
 
         dot.edge(v, u, label = str(w[e]) if weights else '', fontcolor = 'blue')
         drawn.add((v,u))
