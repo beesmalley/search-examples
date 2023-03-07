@@ -27,7 +27,7 @@ def load(lines) :
         assert heur == 'h'
 
     h = {} # heuristic value h(v), for each v in V
-    N = defaultdict(list) # set N(v) of neighbours, for each v in V
+    N_ = defaultdict(set) # set N(v) of neighbours, for each v in V
     w = {} # weight w(e), for each e in E
     for line in lines :
         v, *es = (x.strip() for x in line.split(','))
@@ -37,13 +37,12 @@ def load(lines) :
             h[v] = int(es[0])
             es = es[1:]
 
-        N[v] = []
         for e in es :
             u, *W = (x.strip() for x in e.split(':'))
 
-            N[v].append(u)
+            N_[v].add(u)
             if undir :
-                N[u].append(v)
+                N_[u].add(v)
 
             w[(v,u)] = 1 # w(e) 1 by default
             if W :
@@ -59,8 +58,9 @@ def load(lines) :
 
                     w[(u,v)] = W
 
-    for v in N[v] :
-        N[v] = sorted(N[v])
+    N = {}
+    for v in h :
+        N[v] = sorted(N_[v]) if v in N_ else []
 
     return h, N, w
 
