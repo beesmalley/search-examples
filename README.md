@@ -21,7 +21,15 @@ format.  Visualize a graph (only available in Python), _e.g._,
     $ python3 -c "import graph; graph.visualize(open('example.csv','r'), start='s', goal='g', filename='example')"
 
 on the commandline.  The graph will appear in `example.pdf` (raw
-`.dot` format will appear in `example`)
+`.dot` format will appear in `example`).  You can produce PDF files
+(and corresponding `.dot` files) for all CSV-based graphs in this repo
+(`26th.csv`, `cycles.csv`, `example.csv`, `example-weighted.csv` and
+`romania.csv`) by running
+
+    $ bash visualize.bash
+
+on the commandline.  The corresponding PDFs will have appeared in the
+same directory
 
 ## Run it on repl.it
 
