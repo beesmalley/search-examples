@@ -14,14 +14,20 @@ Run search techniques on this graph in Java by running
     $ javac Driver.java
     $ java Driver example.csv
 
-on the commandline.  Note that graphs are stored in a custom CSV-based
-format.  Visualize a graph (only available in Python), _e.g._,
-`example.csv`, by running
+on the commandline
 
-    $ python3 -c "import graph; graph.visualize(open('example.csv','r'), start='s', goal='g', filename='example')"
+Graphs are stored in a custom CSV-based format.  Visualize a graph
+(only available in Python), _e.g._, `example.csv`, by running
+
+    $ python3 visualize.py example s g
 
 on the commandline.  The graph will appear in `example.png` (raw
 `.dot` format will appear in `example`), as well as in a new window
+
+*Note*: if your system is unable to render the PNG image (which is the
+case if you run it on Replit, below), you can open the raw `example`
+file (it is just a text-formated file), and copy-paste the text into
+https://edotor.net/
 
 You can produce PNG files (and corresponding `.dot` files) for all
 CSV-based graphs in this repo (`26th.csv`, `cycles.csv`,
