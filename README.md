@@ -2,14 +2,26 @@
 
 Some examples of different search techniques (DFS, BFS, etc.)
 
-Run a search technique, _e.g._, `dfs.py` on a graph, _e.g._,
-`example.json` by running
+Run search techniques on a graph, _e.g._, `example.csv`, in Python by
+running
 
-    $ python3 dfs.py example.json
+    $ python3 driver.py example.csv
 
-on the commandline (from the Bash shell).  Note that graphs are stored
-in JSON format
-[https://www.json.org/json-en.html](https://www.json.org/json-en.html)
+on the commandline (from the Bash shell)
+
+Run search techniques on this graph in Java by running
+
+    $ javac Driver.java
+    $ java Driver example.csv
+
+on the commandline.  Note that graphs are stored in a custom CSV-based
+format.  Visualize a graph (only available in Python), _e.g._,
+`example.csv`, by running
+
+    $ python3 -c "import graph; graph.visualize(open('example.csv','r'), start='s', goal='g', filename='example')"
+
+on the commandline.  The graph will appear in `example.pdf` (raw
+`.dot` format will appear in `example`)
 
 ## Run it on repl.it
 
@@ -18,5 +30,15 @@ badge below
 
 [![Run on Repl.it](https://repl.it/badge/github/murraypatterson/search-examples)](https://repl.it/github/murraypatterson/search-examples)
 
-After doing so, you can go to the `Shell` tab (next to the `Console`
-tab) and run from the commandline as above
+Choose (default) Language "Java" if you want to run the Java, and
+Language "Python" if you want the Python.  After choosing the language
+and loading the Replit, you can go to the `Shell` tab (next to the
+`Console` tab) and run
+
+    $ bash run-java.bash
+
+for the Java, and
+
+    $ bash run-python.bash
+
+for the Python (or the commands above, in the appropriate Replit)
