@@ -5,7 +5,17 @@ public class Driver {
 
     public static void main(String[] args) {
 
-	Search search = new Search(args[0]);
+	Graph G = new Graph(args[0]);
+
+	System.out.println("\nGraph structures, h, N and w:\n");
+
+	System.out.println("h = " + G.get_h() + "\n");
+	System.out.println("N = " + G.getN() + "\n");
+	System.out.println("w = " + G.get_w() + "\n");
+
+	Search search = new Search(G);
+
+	System.out.println("Search orders:\n");
 
 	ArrayList<String> order = search.BFS("s","g");
 	System.out.println("BFS: " + order);

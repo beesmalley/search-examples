@@ -21,6 +21,11 @@ public class Search {
 	G = new Graph(filename);
     }
 
+    public Search(Graph G) {
+
+	this.G = G;
+    }
+    
     // perform breadth-first search (BFS) on graph G for a goal vertex
     // starting from some start vertex
     public ArrayList<String> BFS(String start, String goal) {
