@@ -122,4 +122,5 @@ def visualize(lines, start = None, goal = None, filename = 'G') :
         dot.edge(v, u, label = str(w[e]) if weights else '', fontcolor = 'blue')
         drawn.add((v,u))
 
-    dot.render(filename).replace('\\', '/')
+    dot.format = 'png'
+    dot.render(filename, view=True).replace('\\', '/')
