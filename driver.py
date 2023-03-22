@@ -2,6 +2,7 @@
 import sys
 import graph
 import search
+import mysearch
 
 h, N, w = graph.load(open(sys.argv[1],'r'))
 
@@ -38,4 +39,28 @@ print()
 
 order = search.DFSrec(N, start, goal)
 print('DFSrec:', *order)
+print()
+
+order, log = mysearch.UCS(N, w, start, goal)
+print('UCS:   ', *order)
+print()
+
+fname = 'UCS.log'
+with open(fname,'w') as f :
+    print(*log, sep = '\n', file = f)
+print('* log of UCS written to:', fname)
+print()
+
+order, log = mysearch.greedy(N, h, start, goal)
+print('greedy:', *order, log)
+print()
+
+order, log = mysearch.Astar(N, w, h, start, goal)
+print('A*:    ', *order)
+print()
+
+fname = 'Astar.log'
+with open(fname,'w') as f :
+    print(*log, sep = '\n', file = f)
+print('* log of A* written to:', fname)
 print()
