@@ -33,12 +33,12 @@ order = search.BFS(N, start, goal)
 print('BFS:   ', *order)
 print()
 
-order = search.DFS(N, start, goal)
-print('DFS:   ', *order)
+order, log = search.DFS(N, start, goal)
+print('DFS:   ', *order, log)
 print()
 
-order = search.DFSrec(N, start, goal)
-print('DFSrec:', *order)
+order, log = search.DFSrec(N, start, goal)
+print('DFSrec:', *order, log)
 print()
 
 order, log = mysearch.UCS(N, w, start, goal)
