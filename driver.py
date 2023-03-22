@@ -1,10 +1,10 @@
 
 import sys
-import graph
+from graph import load
 import search
 import mysearch
 
-h, N, w = graph.load(open(sys.argv[1],'r'))
+h, N, w = load(open(sys.argv[1],'r'))
 
 start = 's'
 goal = 'g'
