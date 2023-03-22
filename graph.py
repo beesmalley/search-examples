@@ -1,5 +1,4 @@
 
-import graphviz
 from collections import defaultdict
 
 '''
@@ -68,6 +67,8 @@ def load(lines) :
 # given a graph, load it, then color the start vertex green and the
 # goal vertex red, and dump pdf to filename (.pdf)
 def visualize(lines, start = None, goal = None, filename = 'G') :
+
+    import graphviz
 
     h, N, w = load(lines)
 
