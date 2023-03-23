@@ -2,7 +2,7 @@
 import sys
 from graph import load
 import search
-import mysearch
+import mysearch310 as mysearch
 
 h, N, w = load(open(sys.argv[1],'r'))
 
