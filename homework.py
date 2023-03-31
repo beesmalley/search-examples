@@ -36,7 +36,7 @@ def UCS(N, w, start='s', goal='g'):
             visited.append(node)
             path = path + [node]
             if node == goal:
-                print("UCS Cost:", cost)
+                print("UCS Cost:    ", cost)
                 return path, visited
             for neighbor in N[node]:
                 if neighbor not in visited:
