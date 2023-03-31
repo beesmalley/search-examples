@@ -1,0 +1,6 @@
+fringe = Arad(0+366=366) -> select Arad(366)
+fringe = Sibiu(140+253=393) Timisoara(118+329=447) Zerind(75+374=449) -> select Sibiu(393)
+fringe = Timisoara(118+329=447) Zerind(75+374=449) Arad(280+366=646) Fagaras(239+178=417) Oradea(291+380=671) Rimnicu Vilcea(220+193=413) -> select Rimnicu Vilcea(413)
+fringe = Timisoara(118+329=447) Zerind(75+374=449) Arad(280+366=646) Fagaras(239+178=417) Oradea(291+380=671) Craiova(366+160=526) Pitesti(317+98=415) Sibiu(300+253=553) -> select Pitesti(415)
+fringe = Timisoara(118+329=447) Zerind(75+374=449) Arad(280+366=646) Fagaras(239+178=417) Oradea(291+380=671) Craiova(366+160=526) Sibiu(300+253=553) Bucharest(418+0=418) Craiova(455+160=615) Rimnicu Vilcea(414+193=607) -> select Fagaras(417)
+fringe = Timisoara(118+329=447) Zerind(75+374=449) Arad(280+366=646) Oradea(291+380=671) Craiova(366+160=526) Sibiu(300+253=553) Bucharest(418+0=418) Craiova(455+160=615) Rimnicu Vilcea(414+193=607) Bucharest(450+0=450) Sibiu(338+253=591) -> select Bucharest(418)
